@@ -1,6 +1,6 @@
 const path = require('path')
   , _ = require('underscore')
-  , filename = path.resolve(__dirname, 'engineering_survey.db')
+  , filename = path.resolve(__dirname, './engineering_survey.db')
   , migrations = path.resolve(__dirname, './comp/db/migrations')
   , config = {
       client: 'sqlite3',

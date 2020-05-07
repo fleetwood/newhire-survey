@@ -35,29 +35,41 @@
 
         const isBar = (settings.type === 'bar' || settings.type === 'horizontalBar');
 
-        const mapData = (vals) => {
-            vals.sort((a, b) => (a.rank || 0 > b.rank || 1) ? 1 : -1);
-            return {
-                labels: vals.map(d => d.label),
-                datasets: [{
-                    data: vals.map(d => d.value || 0.01),
-                    backgroundColor: buildGradients(vals)
-                }]
-            }
-        };
-
-        var options = { legend: { display: !isBar} },
-        axes = {
-            show: [{ display: true, ticks: { beginAtZero: true, min: 0 } }],
-            hide: [{ display: false}]
-        };
+        let plugins = {
+            datalabels: {
+                formatter: (value, ctx) => {
+                    let datasets = ctx.chart.data.datasets;
+                    if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
+                        let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+                        let percentage = Math.round((value / sum) * 100) + '%';
+                        return `${value} (${percentage$})`;
+                    }
+                    return value;
+                    }
+                }
+            },
+            options = { legend: { display: !isBar} },
+            axes = {
+                show: [{ display: true, ticks: { beginAtZero: true, min: 0 } }],
+                hide: [{ display: false}]
+            },
+            data = (vals) => {
+                vals.sort((a, b) => (a.rank || 0 > b.rank || 1) ? 1 : -1);
+                return {
+                    labels: vals.map(d => d.label),
+                    datasets: [{
+                        data: vals.map(d => d.value),
+                        backgroundColor: buildGradients(vals)
+                    }]
+                }
+            };
         if (isBar) {
             options['scales'] = settings.type === 'bar' 
                 ? { yAxes: axes.show, xAxes: axes.hide} 
                 : { yAxes: axes.hide, xAxes: axes.show }
         }
 
-        new Chart($(this)[0].getContext("2d"), { type: settings.type, data: mapData(settings.data), options });
+        new Chart($(this)[0].getContext("2d"), { type: settings.type, data, options });
         
         return this;
     }
