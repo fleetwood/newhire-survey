@@ -1,0 +1,62 @@
+<div class="app-main">
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+            <!-- TODO: Build a team-level filter -->
+            <div class="row app-page-title">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div>
+                            <h2>{{title}}</h2>
+                            <div class="page-title-subheading"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row md-12">
+                {{#each questions as |question|}}
+                {{#if (eq question.style 'single')}}
+                <div class="col-md-4" style="margin-bottom: 0.5em">
+                    <div class="main-card card">
+                        {{> components/chart question }}
+                    </div>
+                </div>
+                {{else if (eq question.style 'multiple')}}
+                <div class="col-md-4" style="margin-bottom: 0.5em">
+                    <div class="main-card card">
+                        {{> components/chart question }}
+                    </div>
+                </div>
+                {{else if (eq question.style 'scale')}}
+                <div class="col-md-4" style="margin-bottom: 0.5em">
+                    <div class="main-card card">
+                        {{> components/chart question }}
+                    </div>
+                </div>
+                {{else if (eq question.style 'text')}}
+                <div class="col-md-4" style="margin-bottom: 0.5em">
+                    <div class="main-card card">
+                        {{> components/open-text question }}
+                    </div>
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(`.chartjs-render-monitor`).each(function() {
+        let id = $(this).attr('id')
+            , type = $(this).attr('chart-type')
+        $.ajax({
+            url:`api/mapped-question/${$(this).attr('id')}`,
+            success: (results) => {
+                $(this).flyChart({type: results.type, style: results.style, data: results.data});
+            },
+            error: (error) => {
+                console.log(error);
+            }
+        });
+    });
+</script> 

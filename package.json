@@ -1,0 +1,47 @@
+{
+  "name": "onboarding-survey",
+  "version": "1.0.0",
+  "description": "Results of engineering onboard survey",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Running JEST tests....\" && jest",
+    "old-nodemon": "nodemon --watch comp/ --watch views/ --watch scripts/ -e hbs  index.js",
+    "build": "npm i && npm run-script knewdb",
+    "start": "npm run start:prod",
+    "dev": "nodemon --watch comp/ --watch views/ --watch scripts/ -e hbs index.js",
+    "start:prod": "npm run-script build && NODE_ENV=production node index.js",
+    "klatest": "knex migrate:latest",
+    "krollback": "knex migrate:rollback",
+    "kseed": "knex seed:run",
+    "knewdb": "npm run krollback && npm run klatest && knex seed:run"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "browser-sync": "^2.26.7",
+    "cookie-parser": "^1.4.4",
+    "debug": "^2.6.9",
+    "dot-env": "0.0.1",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "express-hbs": "^2.1.2",
+    "jquery.scrollto": "^2.1.2",
+    "knex": "^0.21.1",
+    "lib": "^4.0.2",
+    "lodash": "^4.17.15",
+    "mime": "^2.4.4",
+    "moment": "^2.24.0",
+    "npm": "^6.10.2",
+    "querystring": "^0.2.0",
+    "request": "^2.88.0",
+    "serve-favicon": "^2.5.0",
+    "sqlite3": "^4.2.0",
+    "sqlstring": "^2.3.1",
+    "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "jest": "^25.5.3",
+    "nodemon": "^2.0.3"
+  }
+}
