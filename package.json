@@ -4,6 +4,7 @@
   "description": "Example of how to deploy a Express.js Netlify app.",
   "main": "functions/server.js",
   "scripts": {
+    "prestart": "NODE_PATH=.",
     "build": "netlify-lambda build express",
     "start": "nodemon server-local.js"
   },
@@ -21,12 +22,26 @@
     "url": "https://github.com/neverendingqs/netlify-express/issues"
   },
   "homepage": "https://github.com/neverendingqs/netlify-express#readme",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-hbs": "^2.3.3",
+    "knex": "^0.21.1",
+    "moment": "^2.25.3",
+    "mssql": "^6.2.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
     "netlify-lambda": "^1.6.3",
+    "node-env": "^0.1.6",
     "nodemon": "^1.19.2",
-    "serverless-http": "^2.3.0"
-  }
+    "pg": "^8.0.3",
+    "serve-favicon": "^2.5.0",
+    "serverless-http": "^2.3.0",
+    "sqlite3": "^4.2.0",
+    "sqlstring": "^2.3.2",
+    "underscore": "^1.10.2"
+  },
+  "devDependencies": {}
 }
